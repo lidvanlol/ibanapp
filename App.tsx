@@ -97,7 +97,7 @@ export default function App() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        <CustomText style={styles.label}>Enter IBAN:</CustomText>
+        <CustomText style={styles.label}>Enter IBAN</CustomText>
         <View style={styles.row}>
         <CustomTextInput
           value={iban}

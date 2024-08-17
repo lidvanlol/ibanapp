@@ -13,7 +13,9 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		55786A82357CFD658AF64704 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 834FCFC03DD6D57E7AE26D15 /* PrivacyInfo.xcprivacy */; };
+		5C23DF86CAC440F09453395B /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 77CA628646B645CE96BD3B53 /* Roboto-Regular.ttf */; };
 		7699B88040F8A987B510C191 /* libPods-ibanapp3-ibanapp3Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-ibanapp3-ibanapp3Tests.a */; };
+		7C1B2843EC574D57B0FBEA08 /* Roboto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5F4A65BBDC204E61A4AB4F9B /* Roboto.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +45,8 @@
 		5709B34CF0A7D63546082F79 /* Pods-ibanapp3.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ibanapp3.release.xcconfig"; path = "Target Support Files/Pods-ibanapp3/Pods-ibanapp3.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-ibanapp3-ibanapp3Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ibanapp3-ibanapp3Tests.debug.xcconfig"; path = "Target Support Files/Pods-ibanapp3-ibanapp3Tests/Pods-ibanapp3-ibanapp3Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-ibanapp3.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ibanapp3.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5F4A65BBDC204E61A4AB4F9B /* Roboto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto.ttf; path = ../assets/fonts/Roboto.ttf; sourceTree = "<group>"; };
+		77CA628646B645CE96BD3B53 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Regular.ttf"; path = "../assets/fonts/Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = ibanapp3/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		834FCFC03DD6D57E7AE26D15 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = ibanapp3/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-ibanapp3-ibanapp3Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ibanapp3-ibanapp3Tests.release.xcconfig"; path = "Target Support Files/Pods-ibanapp3-ibanapp3Tests/Pods-ibanapp3-ibanapp3Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -127,6 +131,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				C56C2CB3A0BB4B0FA7B84340 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -151,6 +156,16 @@
 				89C6BE57DB24E9ADA2F236DE /* Pods-ibanapp3-ibanapp3Tests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		C56C2CB3A0BB4B0FA7B84340 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				77CA628646B645CE96BD3B53 /* Roboto-Regular.ttf */,
+				5F4A65BBDC204E61A4AB4F9B /* Roboto.ttf */,
+			);
+			name = Resources;
+			path = "";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -249,6 +264,8 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				55786A82357CFD658AF64704 /* PrivacyInfo.xcprivacy in Resources */,
+				5C23DF86CAC440F09453395B /* Roboto-Regular.ttf in Resources */,
+				7C1B2843EC574D57B0FBEA08 /* Roboto.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

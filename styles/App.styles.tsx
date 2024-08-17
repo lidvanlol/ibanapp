@@ -14,11 +14,12 @@ export const styles = StyleSheet.create({
         flex: 1,
       },
     label: {
-      fontSize: 22,
+      fontSize: 24,
       paddingTop:20,
       paddingBottom: 20,
       textAlign:'center',
-      fontFamily:'SpaceMono-Regular'
+      fontFamily:'Roboto-Bold',
+      color:"#1C1C1C"
     },
     input: {
         height: 50,
@@ -30,6 +31,7 @@ export const styles = StyleSheet.create({
         borderRadius:10,
         flex:1,
         marginRight:10,
+        fontFamily:'Roboto-Regular'
       },
       row:{
         flexDirection:'row'
@@ -37,7 +39,7 @@ export const styles = StyleSheet.create({
     result: {
       marginTop: 20,
       fontSize: 24,
-      fontWeight: 'bold',
+      fontFamily:'Roboto-Regular',
       textAlign: 'center',
     },
     suggestion: {
@@ -45,13 +47,15 @@ export const styles = StyleSheet.create({
       fontSize: 18,
       color: 'orange',
       textAlign: 'center',
+      fontFamily:'Roboto-Regular'
     },
     historyTitle: {
-      fontSize: 20,
-      marginTop: 30,
+      fontSize: 23,
+      marginTop: 10,
       marginBottom: 10,
-      fontWeight: 'bold',
+      
       textAlign: 'center',
+      fontFamily:'Roboto-Bold',
     },
     historyItem: {
       paddingVertical: 5,
@@ -62,12 +66,14 @@ export const styles = StyleSheet.create({
     historyText: {
       fontSize: 18,
       textAlign: 'center',
+      fontFamily:'Roboto-Bold'
     },
     suggestionText: {
       fontSize: 18,
       color: 'orange',
       textAlign: 'center',
       paddingTop:10,
+      fontFamily:'Roboto-Regular'
     },
     button:{
         backgroundColor:"red",
@@ -76,6 +82,8 @@ export const styles = StyleSheet.create({
         alignSelf:"center",
     },
     buttonText:{
+        fontFamily:'Roboto-Bold',
+        fontSize:16,
         
     },
     clearButton:{
