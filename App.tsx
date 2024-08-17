@@ -59,6 +59,15 @@ export default function App() {
   
 
   const handleValidationHistory = () => {
+    // Check if the IBAN already exists in the history
+    const isDuplicate = history.some(item => item.iban === iban);
+    
+    if (isDuplicate) {
+      Alert.alert('This IBAN has already been validated.');
+      return;
+    }
+  
+    // Proceed with adding the entry if it's not a duplicate
     if (iban.length >= IBAN_MIN_LENGTH && iban.length <= IBAN_MAX_LENGTH) {
       const timestamp = new Date().toLocaleString();
       const newEntry: ValidationHistoryItem = {
@@ -67,6 +76,7 @@ export default function App() {
         timestamp,
         suggestedIban: suggestion,
       };
+  
       setHistory([newEntry, ...history]);
   
       // Clear the input field by resetting the IBAN state
@@ -138,22 +148,21 @@ export default function App() {
 
         <CustomText style={styles.historyTitle}>Validation History</CustomText>
         <FlatList
-          data={history}
-          renderItem={({item}) => (
-            <View style={styles.historyItem}>
-              <CustomText style={styles.historyText}>
-                {item.timestamp} - {item.iban} -{' '}
-                {item.isValid ? 'Valid' : 'Invalid'}
-              </CustomText>
-              {item.suggestedIban && (
-                <CustomText style={styles.suggestionText}>
-                  Suggested: {item.suggestedIban}
-                </CustomText>
-              )}
-            </View>
-          )}
-          keyExtractor={index => index.toString()}
-        />
+  data={history}
+  renderItem={({item}) => (
+    <View style={styles.historyItem}>
+      <CustomText style={styles.historyText}>
+        {item.timestamp} - {item.iban} - {item.isValid ? 'Valid' : 'Invalid'}
+      </CustomText>
+      {item.suggestedIban && (
+        <CustomText style={styles.suggestionText}>
+          Suggested: {item.suggestedIban}
+        </CustomText>
+      )}
+    </View>
+  )}
+  keyExtractor={(item, index) => `${item.iban}-${item.timestamp}`}  // Ensure unique key
+/>
       </View>
     </SafeAreaView>
   );
