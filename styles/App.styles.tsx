@@ -57,15 +57,17 @@ export const styles = StyleSheet.create({
       paddingVertical: 5,
       borderBottomWidth: 1,
       borderBottomColor: '#ccc',
+      flexDirection:'row',
     },
     historyText: {
-      fontSize: 16,
+      fontSize: 18,
       textAlign: 'center',
     },
     suggestionText: {
-      fontSize: 14,
+      fontSize: 18,
       color: 'orange',
       textAlign: 'center',
+      paddingTop:10,
     },
     button:{
         backgroundColor:"red",
@@ -88,6 +90,24 @@ export const styles = StyleSheet.create({
        textAlign:'center'
        
         
+    },
+    deleteButton:{
+        
+        marginLeft:5,
+        justifyContent:"center",
+        alignSelf:"center",
+        alignContent:"center",
+        alignItems:'center',
+        backgroundColor:"red",
+    },
+    deleteButtonText:{
+        maxWidth:"90%",
+        padding:5,
+    },
+    deleteButtonIcon:{
+        textAlign:'center',
+        fontSize:15,
+
     },
   });
   

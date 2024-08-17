@@ -57,6 +57,11 @@ export default function App() {
     setSuggestion(null);
   };
   
+  const handleDelete = (ibanToDelete: string) => {
+    // Filter out the history entry that matches the ibanToDelete
+    const updatedHistory = history.filter(item => item.iban !== ibanToDelete);
+    setHistory(updatedHistory);
+  };
 
   const handleValidationHistory = () => {
     // Check if the IBAN already exists in the history
@@ -151,6 +156,7 @@ export default function App() {
   data={history}
   renderItem={({item}) => (
     <View style={styles.historyItem}>
+      <View style={styles.deleteButtonText}>
       <CustomText style={styles.historyText}>
         {item.timestamp} - {item.iban} - {item.isValid ? 'Valid' : 'Invalid'}
       </CustomText>
@@ -159,6 +165,13 @@ export default function App() {
           Suggested: {item.suggestedIban}
         </CustomText>
       )}
+      </View>
+       <CustomButton
+        title="X"
+        onPress={() => handleDelete(item.iban)} // Delete action
+        buttonStyle={styles.deleteButton}
+        textStyle={styles.deleteButtonIcon}
+      />
     </View>
   )}
   keyExtractor={(item, index) => `${item.iban}-${item.timestamp}`}  // Ensure unique key
