@@ -1,118 +1,160 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import {View, FlatList, SafeAreaView, Alert} from 'react-native';
+import {validateIban, suggestCorrectIban} from './utills/ibanUtils';
+import {styles} from './styles/App.styles';
+import React, {useState} from 'react';
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {CustomTextInput} from './components/CustomTextInput';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import {CustomButton} from './components/CustomButton';
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+import {CustomText} from './components/CustomText';
 
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
+interface ValidationHistoryItem {
+  iban: string;
+  isValid: boolean;
+  timestamp: string;
+  suggestedIban?: string | null;
 }
 
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+const IBAN_MIN_LENGTH = 27;
+const IBAN_MAX_LENGTH = 27;
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+export default function App() {
+  const [iban, setIban] = useState<string>('');
+  const [result, setResult] = useState<string>('');
+  const [suggestion, setSuggestion] = useState<string | null>(null);
+  const [history, setHistory] = useState<ValidationHistoryItem[]>([]);
+
+  const handleValidate = (input: string) => {
+    // If the input is empty, reset the result and suggestion
+    if (input.trim() === '') {
+      setResult('');    // Clear the result message
+      setSuggestion(null);  // Clear the suggestion
+      setIban('');  // Clear the IBAN state
+      return;
+    }
+  
+    // Remove all non-alphanumeric characters and convert to uppercase
+    const rawIban = input.replace(/\W/gi, '').toUpperCase();
+  
+    // Validate the raw IBAN without formatting
+    const isValid = validateIban(rawIban);
+    setResult(isValid ? 'Valid IBAN' : 'Invalid IBAN');
+  
+    // Update the IBAN state without formatting
+    setIban(input);
+  
+    // Suggest a correct IBAN if the input is invalid
+    const suggestedIban = !isValid ? suggestCorrectIban(rawIban) ?? null : null;
+    setSuggestion(suggestedIban);
   };
 
+
+  const handleClear = () => {
+    // Clear the IBAN, result, and suggestion
+    setIban('');
+    setResult('');
+    setSuggestion(null);
+  };
+  
+
+  const handleValidationHistory = () => {
+    if (iban.length >= IBAN_MIN_LENGTH && iban.length <= IBAN_MAX_LENGTH) {
+      const timestamp = new Date().toLocaleString();
+      const newEntry: ValidationHistoryItem = {
+        iban,
+        isValid: result === 'Valid IBAN',
+        timestamp,
+        suggestedIban: suggestion,
+      };
+      setHistory([newEntry, ...history]);
+  
+      // Clear the input field by resetting the IBAN state
+      setIban('');
+      setResult('');  // Optionally, reset the result message
+      setSuggestion(null);  // Optionally, reset the suggestion
+    } else {
+      Alert.alert('IBAN is not of the correct length.');
+    }
+  };
+  
+
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.container}>
+        <CustomText style={styles.label}>Enter IBAN:</CustomText>
+        <View style={styles.row}>
+        <CustomTextInput
+          value={iban}
+          onValueChange={handleValidate}
+          style={styles.input}
+          maxLenght={IBAN_MAX_LENGTH} // Max length for IBAN (27 characters)
+          placeholder="MEkk BBBB CCCC CCCC CCCC CC"
+          mask="ME99 9999 9999 9999 9999 99" // Mask to ensure input formatting
+        />
+
+       <CustomButton
+          title="x"
+          onPress={handleClear}  // Clear button action
+          buttonStyle={[styles.clearButton]}
+          textStyle={styles.clearButtonText}
+          disabled={iban.length < 1}
+        />
         </View>
-      </ScrollView>
+
+        <CustomButton
+          title="Validate & Save"
+          onPress={handleValidationHistory}
+          buttonStyle={[
+            styles.button,
+            {
+              backgroundColor:
+                iban.length >= IBAN_MIN_LENGTH && iban.length <= IBAN_MAX_LENGTH
+                  ? 'blue'
+                  : 'grey',
+            },
+          ]}
+          disabled={
+            iban.length < IBAN_MIN_LENGTH || iban.length > IBAN_MAX_LENGTH
+          }
+          textStyle={styles.buttonText}
+        />
+
+{result && (
+  <CustomText
+    style={[
+      styles.result,
+      { color: result === 'Valid IBAN' ? 'green' : 'red' },
+    ]}>
+    {result}
+  </CustomText>
+)}
+
+        {suggestion && (
+          <CustomText style={styles.suggestion}>
+            Did you mean: {suggestion}?
+          </CustomText>
+        )}
+
+        <CustomText style={styles.historyTitle}>Validation History</CustomText>
+        <FlatList
+          data={history}
+          renderItem={({item}) => (
+            <View style={styles.historyItem}>
+              <CustomText style={styles.historyText}>
+                {item.timestamp} - {item.iban} -{' '}
+                {item.isValid ? 'Valid' : 'Invalid'}
+              </CustomText>
+              {item.suggestedIban && (
+                <CustomText style={styles.suggestionText}>
+                  Suggested: {item.suggestedIban}
+                </CustomText>
+              )}
+            </View>
+          )}
+          keyExtractor={index => index.toString()}
+        />
+      </View>
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
-export default App;
